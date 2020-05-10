@@ -1,0 +1,23 @@
+Installing package into ‘/home/rstudio-user/R/x86_64-pc-linux-gnu-library/3.6’
+(as ‘lib’ is unspecified)
+also installing the dependency ‘rappdirs’
+
+trying URL 'http://package-proxy/src/contrib/rappdirs_0.3.1.tar.gz'
+Content type 'application/x-tar' length 82538 bytes (80 KB)
+==================================================
+downloaded 80 KB
+
+trying URL 'http://package-proxy/src/contrib/reticulate_1.15.tar.gz'
+Content type 'application/x-tar' length 1962676 bytes (1.9 MB)
+==================================================
+downloaded 1.9 MB
+
+* installing *binary* package ‘rappdirs’ ...
+* DONE (rappdirs)
+* installing *binary* package ‘reticulate’ ...
+* DONE (reticulate)
+
+The downloaded source packages are in
+	‘/tmp/RtmpGm0gsM/downloaded_packages’
+	
+	

@@ -1,0 +1,249 @@
+---
+title: "Scientific Computing with R & Python"
+author: "Axel-Cleris Gailloty"
+date: 2020/05/10
+output: bookdown::gitbook
+---
+
+# Introduction
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = NA)
+```
+
+```{r}
+load_packages <- function(pkgs){
+  # This function takes as input a character vector of package names and
+  # load them, if the packages are not installed it installs before 
+  # loading them.
+  load_silently <- function(x, ...){
+    suppressPackageStartupMessages(library(x, ...))
+  }
+  for (pkg in pkgs){
+  if (! pkg %in% installed.packages()[, "Package"]) {
+    install.packages(pkg)
+    lapply(pkg, load_silently, character.only = TRUE)
+  } else {
+    lapply(pkg, load_silently, character.only = TRUE)
+  }
+}
+}
+```
+
+# Setting the environment
+
+One of the most important thing to do before starting a project is to make sure everything is set up correctly so it will work later. This means installing the dependencies, creating environments that will be used throughout the project, easy to debug etc...  
+
+In this project we'll be featuring the `reticulate` package designed to be the R interface to Python. This package helps us call Python code within an R session, it comes extremly useful to use third party Python libraries from within an R project. This is in my opinion a game changer in scientific computing and makes R very versatile.  
+
+To be able to use Python in R we need to install the `reticulate` package that we will configure for scientific use.  
+
+```{}
+install.packages("reticulate")
+```
+
+We can now load this package into our environment to use its functions. 
+
+```{r}
+library(reticulate)
+```
+
+There are 85 useful functions inside this package to help us use Python from within R. Let's print what is inside this package so you have a better idea of the things we can do with it. 
+
+```{r}
+printElements <- function(package, ncol = 5, pattern = "*"){
+  mat <- matrix(ls(paste0("package:", package)), ncol = ncol)
+  df <- data.frame(mat)
+  cols <- c()
+  for (i in seq_len(ncol)) {
+    cols <- c(cols, paste(replicate(i, pattern), collapse = ""))
+  }
+  colnames(df) <- cols
+  return(df)
+}
+
+knitr::kable(printElements("reticulate", 4))
+```
+
+We are not going to use all of the functions of this package because their use depends on the application.  
+The functions we'll be using are related to creating environments, installing Python libraries, sourcing Python files that contain classes and functions we will use inside our project.  
+
+## Installing a Python interpreter and creating environments  
+
+In order to execute Python code we need to have a Python interpreter that will tell the computer what to do. You may already have a Python interpreter installed on your computer. Python comes installed with some Linux distributions such as Ubuntu or Debian.  
+But what I advocate here is not to use your default system Python interpreter, but instead install a separate Python interpreter on which you will have more control and that helps you manage your dependencies easily. For that purpose we are going to set a Python virtual environment.  
+
+The two main virtual environments for Python are `virtualenv` and `conda`.  
+For scientific computing the virtual environment that is recommanded is conda, so in this project I will featured conda but either you use virtualenv or conda the purpose is the same : isolate Python environments and manage the dependencies.  
+There are functions in the reticulate package that helps installed either virtualenv or conda.  
+To install conda we will use the `install_miniconda()` function. This will install a Python interpreter and some minimum packages. There is a full version of conda that comes with over 900 packages installed. For more information visit the [Anaconda](https://www.anaconda.com/products/individual). 
+
+```{}
+# virtualenv_install() # for installing virtualenv
+install_miniconda(path = "/home/rstudio-user/miniconda", update = TRUE) # update = TRUE to update to the latest miniconda version
+```
+
+By running the `install_miniconda()` function R installs on the computer a Python 3.6 interpreter with useful libraries such as numpy. 
+Since I am using RStudio Cloud I do not have the permissions to install miniconda at the system level, so the conda binary is installed in the rstudio-user folder. 
+
+```{r}
+conda_binary()
+```
+
+```{bash}
+ls ~/miniconda
+```
+By default the `install_miniconda()` function creates an environment called r-reticulate that contain a Python 3.6 binary and other package dependencies. However this is not quite what we want. We would like to create our own environment for scientific computing where we want to use the latest Python 3.8 interpreter and some specific libraries that we will install.  
+
+```{r}
+# conda environments
+conda_list()
+```
+
+
+Let's create our own environment that we will use throughout this project.  
+
+
+```{}
+py_config()
+```
+
+```{}
+python:         /home/rstudio-user/miniconda/envs/r-reticulate/bin/python
+libpython:      /home/rstudio-user/miniconda/envs/r-reticulate/lib/libpython3.6m.so
+pythonhome:     /home/rstudio-user/miniconda/envs/r-reticulate:/home/rstudio-user/miniconda/envs/r-reticulate
+version:        3.6.10 |Anaconda, Inc.| (default, May  8 2020, 02:54:21)  [GCC 7.3.0]
+numpy:          /home/rstudio-user/miniconda/envs/r-reticulate/lib/python3.6/site-packages/numpy
+numpy_version:  1.18.1
+
+python versions found: 
+ /home/rstudio-user/miniconda/envs/r-reticulate/bin/python
+ /usr/bin/python3
+ /usr/bin/python
+ /home/rstudio-user/miniconda/bin/python
+```
+
+
+
+```{}
+conda_create("sci-comp", packages = c("python=3.8", "numpy", "scipy"))
+```
+
+```{}
+Downloading and Extracting Packages
+numpy-1.18.1         | 5 KB      | ########## | 100% 
+numpy-base-1.18.1    | 4.2 MB    | ########## | 100% 
+mkl_random-1.1.0     | 340 KB    | ########## | 100% 
+six-1.14.0           | 27 KB     | ########## | 100% 
+certifi-2020.4.5.1   | 156 KB    | ########## | 100% 
+mkl_fft-1.0.15       | 159 KB    | ########## | 100% 
+scipy-1.4.1          | 14.8 MB   | ########## | 100% 
+setuptools-46.1.3    | 523 KB    | ########## | 100% 
+python-3.8.2         | 49.2 MB   | ########## | 100% 
+wheel-0.34.2         | 51 KB     | ########## | 100% 
+pip-20.0.2           | 1.7 MB    | ########## | 100% 
+mkl-service-2.3.0    | 62 KB     | ########## | 100% 
+Preparing transaction: ...working... done
+Verifying transaction: ...working... done
+Executing transaction: ...working... done
+#
+# To activate this environment, use
+#
+#     $ conda activate sci-comp
+#
+# To deactivate an active environment, use
+#
+#     $ conda deactivate
+
+[1] "/home/rstudio-user/miniconda/envs/sci-comp/bin/python"
+```
+
+Then we will tell R to use that newly created conda environment. 
+
+```{r}
+use_condaenv("sci-comp")
+```
+
+```{r}
+# Try to use numpy
+np <- import("numpy")
+```
+
+```{r}
+np$arange(0, 20, 0.5)
+```
+
+
+# Multidimensional Arrays with Numpy 
+
+## Goals 
+
+The goal of this part is to introduce you the Numpy library and teach you how to integrate it with the R programming language for various applications. 
+
+NumPy is the fundamental package for scientific computing with Python. It contains among other things:
+
+    a powerful N-dimensional array object
+
+    sophisticated (broadcasting) functions
+
+    tools for integrating C/C++ and Fortran code
+
+    useful linear algebra, Fourier transform, and random number capabilities
+
+Besides its obvious scientific uses, NumPy can also be used as an efficient multi-dimensional container of generic data. Arbitrary data-types can be defined. This allows NumPy to seamlessly and speedily integrate with a wide variety of databases.  
+
+Numpy is the essential package on which a large part of scientific packages for Python are built. The core of Numpy is implemented in C and provide efficient functions for manipulating and processing arrays.  
+
+## Numpy arrays 
+```{r}
+np <- import("numpy", convert = TRUE) # the convert = TRUE converts Python objects to their R equivalent
+```
+
+
+The Numpy arrays are very similar to some of the R's core data structures such as vectors, matrices or other multidimensional array objects in R.  To create an array in Numpy we use the np.array function, its equivalent using R is np$array. 
+
+```{r}
+(arr <- np$array(1:10))
+```
+
+Note that the `convert = TRUE` forces the output to be an R object. By doing so the available methods that the Python object returned by the call of the np$array() are losts.  
+
+```{r}
+class(arr)
+```
+```{r}
+built <- import("builtins")
+```
+
+
+Let now overwrite the previous import() but now with the convert argument set to FALSE and create the same array and check and use the class function to very its type. 
+
+```{r}
+rm(np) # delete the previous import
+np <- import("numpy", convert = FALSE)
+arr <- np$array(1:10)
+class(arr)
+```
+
+This way we can use the Python `dir()` built-in function to list all the methods available for a particular object. 
+
+```{r}
+built$dir(arr)
+```
+
+The Numpy object returned by the `np$array()` is much richer than what is converted to the R object. So for that purpose I will set `convert = FALSE` and manually convert the object to an R object if needed using the `py_to_r()` function from the reticulate package.  
+
+```{r}
+arr$mean()
+```
+
+
+```{r}
+class(
+  py_to_r(arr)
+)
+```
+
+
+
+

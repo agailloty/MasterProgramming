@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Multidimensional Arrays with Numpy | Scientific Computing with R &amp; Python</title>
+  <meta name="description" content="3 Multidimensional Arrays with Numpy | Scientific Computing with R &amp; Python" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Multidimensional Arrays with Numpy | Scientific Computing with R &amp; Python" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Multidimensional Arrays with Numpy | Scientific Computing with R &amp; Python" />
+  
+  
+  
+
+<meta name="author" content="Axel-Cleris Gailloty" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="setting-the-environment.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="setting-the-environment.html"><a href="setting-the-environment.html"><i class="fa fa-check"></i><b>2</b> Setting the environment</a><ul>
+<li class="chapter" data-level="2.1" data-path="setting-the-environment.html"><a href="setting-the-environment.html#installing-a-python-interpreter-and-creating-environments"><i class="fa fa-check"></i><b>2.1</b> Installing a Python interpreter and creating environments</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="multidimensional-arrays-with-numpy.html"><a href="multidimensional-arrays-with-numpy.html"><i class="fa fa-check"></i><b>3</b> Multidimensional Arrays with Numpy</a><ul>
+<li class="chapter" data-level="3.1" data-path="multidimensional-arrays-with-numpy.html"><a href="multidimensional-arrays-with-numpy.html#goals"><i class="fa fa-check"></i><b>3.1</b> Goals</a></li>
+<li class="chapter" data-level="3.2" data-path="multidimensional-arrays-with-numpy.html"><a href="multidimensional-arrays-with-numpy.html#numpy-arrays"><i class="fa fa-check"></i><b>3.2</b> Numpy arrays</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Scientific Computing with R &amp; Python</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="multidimensional-arrays-with-numpy" class="section level1">
+<h1><span class="header-section-number">3</span> Multidimensional Arrays with Numpy</h1>
+<div id="goals" class="section level2">
+<h2><span class="header-section-number">3.1</span> Goals</h2>
+<p>The goal of this part is to introduce you the Numpy library and teach you how to integrate it with the R programming language for various applications.</p>
+<p>NumPy is the fundamental package for scientific computing with Python. It contains among other things:</p>
+<pre><code>a powerful N-dimensional array object
+
+sophisticated (broadcasting) functions
+
+tools for integrating C/C++ and Fortran code
+
+useful linear algebra, Fourier transform, and random number capabilities</code></pre>
+<p>Besides its obvious scientific uses, NumPy can also be used as an efficient multi-dimensional container of generic data. Arbitrary data-types can be defined. This allows NumPy to seamlessly and speedily integrate with a wide variety of databases.</p>
+<p>Numpy is the essential package on which a large part of scientific packages for Python are built. The core of Numpy is implemented in C and provide efficient functions for manipulating and processing arrays.</p>
+</div>
+<div id="numpy-arrays" class="section level2">
+<h2><span class="header-section-number">3.2</span> Numpy arrays</h2>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">np &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;numpy&quot;</span>, <span class="dt">convert =</span> <span class="ot">TRUE</span>) <span class="co"># the convert = TRUE converts Python objects to their R equivalent</span></a></code></pre></div>
+<p>The Numpy arrays are very similar to some of the R’s core data structures such as vectors, matrices or other multidimensional array objects in R. To create an array in Numpy we use the np.array function, its equivalent using R is np$array.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">(arr &lt;-<span class="st"> </span>np<span class="op">$</span><span class="kw">array</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>))</a></code></pre></div>
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<p>Note that the <code>convert = TRUE</code> forces the output to be an R object. By doing so the available methods that the Python object returned by the call of the np$array() are losts.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">class</span>(arr)</a></code></pre></div>
+<pre><code>[1] &quot;array&quot;</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">built &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;builtins&quot;</span>)</a></code></pre></div>
+<p>Let now overwrite the previous import() but now with the convert argument set to FALSE and create the same array and check and use the class function to very its type.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">rm</span>(np) <span class="co"># delete the previous import</span></a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">np &lt;-<span class="st"> </span><span class="kw">import</span>(<span class="st">&quot;numpy&quot;</span>, <span class="dt">convert =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb28-3" data-line-number="3">arr &lt;-<span class="st"> </span>np<span class="op">$</span><span class="kw">array</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb28-4" data-line-number="4"><span class="kw">class</span>(arr)</a></code></pre></div>
+<pre><code>[1] &quot;numpy.ndarray&quot;         &quot;python.builtin.object&quot;</code></pre>
+<p>This way we can use the Python <code>dir()</code> built-in function to list all the methods available for a particular object.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">built<span class="op">$</span><span class="kw">dir</span>(arr)</a></code></pre></div>
+<pre><code>  [1] &quot;T&quot;                   &quot;__abs__&quot;             &quot;__add__&quot;            
+  [4] &quot;__and__&quot;             &quot;__array__&quot;           &quot;__array_finalize__&quot; 
+  [7] &quot;__array_function__&quot;  &quot;__array_interface__&quot; &quot;__array_prepare__&quot;  
+ [10] &quot;__array_priority__&quot;  &quot;__array_struct__&quot;    &quot;__array_ufunc__&quot;    
+ [13] &quot;__array_wrap__&quot;      &quot;__bool__&quot;            &quot;__class__&quot;          
+ [16] &quot;__complex__&quot;         &quot;__contains__&quot;        &quot;__copy__&quot;           
+ [19] &quot;__deepcopy__&quot;        &quot;__delattr__&quot;         &quot;__delitem__&quot;        
+ [22] &quot;__dir__&quot;             &quot;__divmod__&quot;          &quot;__doc__&quot;            
+ [25] &quot;__eq__&quot;              &quot;__float__&quot;           &quot;__floordiv__&quot;       
+ [28] &quot;__format__&quot;          &quot;__ge__&quot;              &quot;__getattribute__&quot;   
+ [31] &quot;__getitem__&quot;         &quot;__gt__&quot;              &quot;__hash__&quot;           
+ [34] &quot;__iadd__&quot;            &quot;__iand__&quot;            &quot;__ifloordiv__&quot;      
+ [37] &quot;__ilshift__&quot;         &quot;__imatmul__&quot;         &quot;__imod__&quot;           
+ [40] &quot;__imul__&quot;            &quot;__index__&quot;           &quot;__init__&quot;           
+ [43] &quot;__init_subclass__&quot;   &quot;__int__&quot;             &quot;__invert__&quot;         
+ [46] &quot;__ior__&quot;             &quot;__ipow__&quot;            &quot;__irshift__&quot;        
+ [49] &quot;__isub__&quot;            &quot;__iter__&quot;            &quot;__itruediv__&quot;       
+ [52] &quot;__ixor__&quot;            &quot;__le__&quot;              &quot;__len__&quot;            
+ [55] &quot;__lshift__&quot;          &quot;__lt__&quot;              &quot;__matmul__&quot;         
+ [58] &quot;__mod__&quot;             &quot;__mul__&quot;             &quot;__ne__&quot;             
+ [61] &quot;__neg__&quot;             &quot;__new__&quot;             &quot;__or__&quot;             
+ [64] &quot;__pos__&quot;             &quot;__pow__&quot;             &quot;__radd__&quot;           
+ [67] &quot;__rand__&quot;            &quot;__rdivmod__&quot;         &quot;__reduce__&quot;         
+ [70] &quot;__reduce_ex__&quot;       &quot;__repr__&quot;            &quot;__rfloordiv__&quot;      
+ [73] &quot;__rlshift__&quot;         &quot;__rmatmul__&quot;         &quot;__rmod__&quot;           
+ [76] &quot;__rmul__&quot;            &quot;__ror__&quot;             &quot;__rpow__&quot;           
+ [79] &quot;__rrshift__&quot;         &quot;__rshift__&quot;          &quot;__rsub__&quot;           
+ [82] &quot;__rtruediv__&quot;        &quot;__rxor__&quot;            &quot;__setattr__&quot;        
+ [85] &quot;__setitem__&quot;         &quot;__setstate__&quot;        &quot;__sizeof__&quot;         
+ [88] &quot;__str__&quot;             &quot;__sub__&quot;             &quot;__subclasshook__&quot;   
+ [91] &quot;__truediv__&quot;         &quot;__xor__&quot;             &quot;all&quot;                
+ [94] &quot;any&quot;                 &quot;argmax&quot;              &quot;argmin&quot;             
+ [97] &quot;argpartition&quot;        &quot;argsort&quot;             &quot;astype&quot;             
+[100] &quot;base&quot;                &quot;byteswap&quot;            &quot;choose&quot;             
+[103] &quot;clip&quot;                &quot;compress&quot;            &quot;conj&quot;               
+[106] &quot;conjugate&quot;           &quot;copy&quot;                &quot;ctypes&quot;             
+[109] &quot;cumprod&quot;             &quot;cumsum&quot;              &quot;data&quot;               
+[112] &quot;diagonal&quot;            &quot;dot&quot;                 &quot;dtype&quot;              
+[115] &quot;dump&quot;                &quot;dumps&quot;               &quot;fill&quot;               
+[118] &quot;flags&quot;               &quot;flat&quot;                &quot;flatten&quot;            
+[121] &quot;getfield&quot;            &quot;imag&quot;                &quot;item&quot;               
+[124] &quot;itemset&quot;             &quot;itemsize&quot;            &quot;max&quot;                
+[127] &quot;mean&quot;                &quot;min&quot;                 &quot;nbytes&quot;             
+[130] &quot;ndim&quot;                &quot;newbyteorder&quot;        &quot;nonzero&quot;            
+[133] &quot;partition&quot;           &quot;prod&quot;                &quot;ptp&quot;                
+[136] &quot;put&quot;                 &quot;ravel&quot;               &quot;real&quot;               
+[139] &quot;repeat&quot;              &quot;reshape&quot;             &quot;resize&quot;             
+[142] &quot;round&quot;               &quot;searchsorted&quot;        &quot;setfield&quot;           
+[145] &quot;setflags&quot;            &quot;shape&quot;               &quot;size&quot;               
+[148] &quot;sort&quot;                &quot;squeeze&quot;             &quot;std&quot;                
+[151] &quot;strides&quot;             &quot;sum&quot;                 &quot;swapaxes&quot;           
+[154] &quot;take&quot;                &quot;tobytes&quot;             &quot;tofile&quot;             
+[157] &quot;tolist&quot;              &quot;tostring&quot;            &quot;trace&quot;              
+[160] &quot;transpose&quot;           &quot;var&quot;                 &quot;view&quot;               </code></pre>
+<p>The Numpy object returned by the <code>np$array()</code> is much richer than what is converted to the R object. So for that purpose I will set <code>convert = FALSE</code> and manually convert the object to an R object if needed using the <code>py_to_r()</code> function from the reticulate package.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">arr<span class="op">$</span><span class="kw">mean</span>()</a></code></pre></div>
+<pre><code>5.5</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="kw">class</span>(</a>
+<a class="sourceLine" id="cb34-2" data-line-number="2">  <span class="kw">py_to_r</span>(arr)</a>
+<a class="sourceLine" id="cb34-3" data-line-number="3">)</a></code></pre></div>
+<pre><code>[1] &quot;array&quot;</code></pre>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="setting-the-environment.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+},
+"search": false
+});
+});
+</script>
+
+</body>
+
+</html>
